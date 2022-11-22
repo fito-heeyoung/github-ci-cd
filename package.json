@@ -1,0 +1,22 @@
+{
+  "name": "github-ci-cd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:prod": "echo \"build - prod\"",
+    "build:qa": "echo \"build - qa\"",
+    "build:dev": "echo \"build - dev\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fito-heeyoung/github-ci-cd.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fito-heeyoung/github-ci-cd/issues"
+  },
+  "homepage": "https://github.com/fito-heeyoung/github-ci-cd#readme"
+}
