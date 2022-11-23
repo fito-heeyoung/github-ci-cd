@@ -1,54 +1,25 @@
-name: Deploy
-
+name: Deploy Dev Server
 on:
   push:
     branches:
+      - develop
       - master
       - qa
-      - develop
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  ENVIRONMENT: ${{
+    contains(fromJson('["master"]'), github.ref_name) && 'prod' ||
+    contains(fromJson('["qa"]'), github.ref_name) && 'qa' ||
+    contains(fromJson('["develop"]'), github.ref_name) && 'dev' }}
 
 jobs:
   set_up:
     runs-on: ubuntu-latest
-    steps: 
-      - name: Git checkout
-        uses: actions/checkout@v3
 
-      - name: Set Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-    
-  deployment_prod: 
-    runs-on: ubuntu-latest
-    environment: prod
-    needs: set_up
     steps:
-      - name: NPM Build
-        run: npm run build:prod
-      
-      - name: aws
-        run: "echo\"${{ secrets.BUCKET }} ${{ secrets.GENNERAL }}\""
-
-  deployment_dev: 
-    runs-on: ubuntu-latest
-    environment: dev
-    needs: set_up
-    steps:
-      - name: NPM Build
-        run: npm run build:dev
-
-      - name: aws
-        run: "echo\"${{ secrets.BUCKET }} ${{ secrets.GENNERAL }}\""
-
-  deployment_qa: 
-    runs-on: ubuntu-latest
-    environment: qa
-    needs: set_up
-    steps:
-      - name: NPM Build
-        run: npm run build:qa
-        
-      - name: aws
-        run: "echo\"${{ secrets.BUCKET }} ${{ secrets.GENNERAL }}\""
-
+      - name: "run"
+        run: echo "$ENVIRONMENT"
