@@ -18,13 +18,14 @@ env:
 
 jobs:
   set_up:
+    environment: ${{ env.ENVIRONMENT }}
+
     runs-on: ubuntu-latest
 
     steps:
       - name: "run"
-        run: echo "$ENVIRONMENT"
-
-      - name: "get npm version"
+        env:
+          BUCKET: ${{secrets.BUCKET }}
         run: |
-          version=$(cat package.json | jq '.version' | tr -d '"')
-          echo "${version}"
+          echo ${{ env.ENVIRONMENT }}
+          echo $BUCKET | sed 's/./& /g'
