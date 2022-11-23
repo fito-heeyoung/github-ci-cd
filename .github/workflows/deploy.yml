@@ -23,3 +23,8 @@ jobs:
     steps:
       - name: "run"
         run: echo "$ENVIRONMENT"
+
+      - name: "get npm version"
+        run: |
+          version=$(cat package.json | jq '.version' | tr -d '"')
+          echo "${version}"
